@@ -1,4 +1,4 @@
-import { Dashboard } from "../Dashboard/Dashboard"
+import { Dashboard } from "../Dashboard/DashboardAdmin"
 import { ModalActualizarBecario } from "./ActualizarDatos(Modal)"
 
 export const ListaBecarios = () => {

@@ -1,4 +1,4 @@
-import { Dashboard } from "../Dashboard/Dashboard";
+import { Dashboard } from "../Dashboard/DashboardAdmin";
 
 
 export const MainPage = () => {
