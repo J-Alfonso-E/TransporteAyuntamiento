@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 
-export const DashboardB = () => {
+export const DashboardC = () => {
     return (
 
         <>
@@ -23,12 +23,7 @@ export const DashboardB = () => {
                             <li className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/">Home</Link>
                             </li>
-                            
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/InfoBecario">Informacion del Becario</Link>
-                            </li>
-
-                            
+                                                        
                         </ul>
                     </div>
                 </div>

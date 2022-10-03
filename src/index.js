@@ -5,7 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 //import { MainPage } from './Administrativo/MainPage';
 //import { RutasPrueba } from './Rutas/RutasAdmin';
-import { RutasBecario } from './Rutas/RutasBecario';
+//import { RutasBecario } from './Rutas/RutasBecario';
+import { RutasCuenca } from './Rutas/RutasCuenca';
 
 
 
@@ -13,7 +14,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
       
       <React.StrictMode>
-            <RutasBecario />
+            <RutasCuenca />
 </React.StrictMode>
 );
 
