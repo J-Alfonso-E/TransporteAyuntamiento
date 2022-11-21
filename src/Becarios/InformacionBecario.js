@@ -1,9 +1,11 @@
 import { DashboardB } from "../Dashboard/DashboardBecario"
+import { DashboardGeneral } from "../Dashboard/DashboardGeneral"
 
 export const InfoBecario = () => {
     return (
         <>
-            <DashboardB />
+            <DashboardB /> 
+            {/*<DashboardGeneral />*/}
             <div className="container mt-5 pt-2">
                 <h2>Informacion del Becario</h2>
 

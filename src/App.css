@@ -1,38 +1,39 @@
-.App {
-  text-align: center;
+.btn-cerrar-sesion {
+  background-color: rgb(152, 0, 0);
+  border-radius: 160.6px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn-Registro-Becario {
+  background-color: rgb(152, 0, 0);
+  border-radius: 160.6px;
+  font-weight: bold;
+  font-size: 26.8px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  background-color: lightgray;
+} 
+
+
+.Div-Vigencia-Registro {
+  margin-top: 21px;padding-top: 0px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Div-Vigencia-Registro-Msj {
+  background: #a30000;
+  min-height: 53px;
+  height: 31px;
+  padding: 11px;
+  font-size: 27px;
+  border-radius: 21px;
 }
 
-.App-link {
-  color: #61dafb;
+.form-control-user {
+  border-radius: 10rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+.Span-Vigencia-Registro {
+  color: rgb(255, 255, 255);
 }

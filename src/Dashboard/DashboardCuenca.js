@@ -21,7 +21,7 @@ export const DashboardC = () => {
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end ">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Home</Link>
+                                <Link className="nav-link" aria-current="page" to="/Cuenca">Home</Link>
                             </li>
                                                         
                         </ul>

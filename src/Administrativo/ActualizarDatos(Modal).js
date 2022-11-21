@@ -1,4 +1,9 @@
-export const ModalActualizarBecario = () => {
+import {ActualizarEstudiante} from "./ActualizarEstudiante";
+
+export const ModalActualizarBecario = (value) => {
+
+    console.log(value);
+
     console.log("Modal");
     return ( 
         <div className="modal" tabindex="-1" id="ModalEjemplo">
@@ -47,7 +52,7 @@ export const ModalActualizarBecario = () => {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-primary">Guardar Cambios</button>
+                        <button type="button" className="btn btn-primary" onClick={ActualizarEstudiante}>Guardar Cambios</button>
                     </div>
                 </div>
             </div>

@@ -21,11 +21,11 @@ export const DashboardB = () => {
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end ">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Home</Link>
+                                <Link className="nav-link" aria-current="page" to="/Becario">Home</Link>
                             </li>
                             
                             <li className="nav-item">
-                                <Link className="nav-link" to="/InfoBecario">Informacion del Becario</Link>
+                                <Link className="nav-link" to="/Becario/InfoBecario">Informacion del Becario</Link>
                             </li>
 
                             

@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { RegistrarAsistencia } from './RegistrarAsistencia.js';
 import Html5QrcodePlugin from './Html5QrcodePlugin.jsx'
 import ResultContainerPlugin from './ResultContainerPlugin.jsx'
-import HowToUse from './HowToUse.jsx'
+import { LeyendaRegistro } from '../Componentes/LeyendaRegistro.js';
+
+//import HowToUse from './HowToUse.jsx'
+
+const horaRender =  new Date();
+let timestamp;
+
 
 class LectorQR extends React.Component {
+
+    
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -12,31 +22,56 @@ class LectorQR extends React.Component {
 
         // This binding is necessary to make `this` work in the callback.
         this.onNewScanResult = this.onNewScanResult.bind(this);
+        //console.log(this.onNewScanResult);
+
+        //timestamp = new Date();
     }
 
+    
+
+
     render() {
-        return (
-            <div className="App">
-                <section className="App-section">
-                    <div className="App-section-title"> Html5-qrcode React demo</div>
-                    <br />
-                    <br />
-                    <br />
-                    <Html5QrcodePlugin
-                        fps={10}
-                        qrbox={250}
-                        disableFlip={false}
-                        qrCodeSuccessCallback={this.onNewScanResult} />
-                    <ResultContainerPlugin results={this.state.decodedResults} />
-                    <HowToUse />
-                </section>
-            </div>
-        );
+
+        if(horaRender - timestamp > 600000 || isNaN(horaRender - timestamp)){
+            return (
+                <div className="App">
+                    <section className="App-section">
+                        <div className="App-section-title"> Html5-qrcode React demo</div>
+                        <br />
+                        <br />
+                        <br />
+                        <Html5QrcodePlugin
+                            fps={10}
+                            qrbox={250}
+                            disableFlip={false}
+                            qrCodeSuccessCallback={this.onNewScanResult} />
+                        <ResultContainerPlugin results={this.state.decodedResults} />
+                        
+                    </section>
+                </div>
+            );
+        }
+        else {
+            console.log(horaRender);
+            console.log(timestamp);
+            console.log(isNaN( horaRender - timestamp) );
+            return (
+                <LeyendaRegistro />
+            )
+        }
+        
     }
+
+
+
 
     onNewScanResult(decodedText, decodedResult) {
         console.log(
             "App [result]", decodedResult);
+
+            //console.log(decodedResult);
+            timestamp = new Date();
+            RegistrarAsistencia();
 
         // let decodedResults = this.state.decodedResults;
         // decodedResults.push(decodedResult);

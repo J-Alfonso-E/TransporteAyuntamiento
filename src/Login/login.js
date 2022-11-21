@@ -1,10 +1,17 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../Auth/AuthContext";
-import { authReducer } from "../Auth/AuthReducer";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+//import { AuthContext } from "../Auth/AuthContext";
+//import { authReducer } from "../Auth/AuthReducer";
 
 export const Login = () => {
+    console.log("Login");
 
     //const {user, dispatch} = useContext(AuthContext);
+
+    let cookie = new Cookies();
+
+    let navigate = useNavigate();
 
 
     const [values, SetValues] = useState({
@@ -34,6 +41,26 @@ export const Login = () => {
         .then(respuesta => {
             console.log("Permisos:" + respuesta['results'][0]['id_tipo_usuario']);
             console.log("Permisos:" + respuesta['results'][0]['username']);
+
+            cookie.set("Id", respuesta['results'][0]["id_login"], {path:"/"});
+            cookie.set("Usuario", respuesta['results'][0]["username"], {path:"/"});
+            cookie.set("TipoUsuario", respuesta['results'][0]["id_tipo_usuario"], {path:"/"});
+
+            switch(respuesta['results'][0]['id_tipo_usuario']){
+                case 1:
+                    navigate("/Administrativo");
+                break;
+
+                case 2:
+                    navigate("/Becario");
+                break;
+
+                case 3:
+                    navigate("/Cuenca");
+
+                break;
+            }
+
         })
         .catch(err => {
             console.log("Fallo en la Solicitud: " + err);
@@ -80,7 +107,7 @@ export const Login = () => {
                         <div className="row">
                             <form onSubmit={EnviarFormulario}>
                                 <div className="col-md-12 col-sm-12 mt-2">
-                                    <label>Email</label>
+                                    <label>Usuario</label>
                                 </div>
                                 <div className="col-md-12 col-sm-12">
                                     <input type="text" name="Usuario" value={values.Usuario} onChange={DatosSesion} className="form-control" placeholder="Email" />

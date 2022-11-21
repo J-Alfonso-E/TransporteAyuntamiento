@@ -10,9 +10,13 @@ if (isset($_POST)) {
     }
 
     $response = new PostController();
-    $response->postData($table,$_POST);
+
+    /**EDITAR */
+    if (isset($_GET['edit'])) {
+        $response->postDataEdit($table, $_POST, $_GET['id'], $_GET['nameId']);
+    }
+    /**CREAR DATOS */
+    else {
+        $response->postData($table, $_POST);
+    }
 }
-
-
-
-

@@ -15,6 +15,17 @@ class PostController {
         $return->functionResponse($response);
     }
 
+      /**
+     * PETICIÓN 'POST' PARA EDITAR DATOS
+     */
+    static public function postDataEdit($table, $data, $id, $nameId) {
+
+        $response = PostModel::postDataEdit($table, $data, $id, $nameId);
+
+        $return = new PostController();
+        $return->functionResponse($response);
+    }
+
 
 
     /** LA RESPUESTA DEL CONTROLADOR */
