@@ -1,0 +1,1254 @@
+{
+	"info": {
+		"_postman_id": "9d4f1885-7d5c-4740-b57c-1bb2b2a4f039",
+		"name": "api-transporte",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Endpoints",
+			"item": [
+				{
+					"name": "Login Request",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/login?linkTo=username|pass&equalTo=Oscar|b2157e7b2ae716a747597717f1efb7a0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"login"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "startAt",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "endAt",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "linkTo",
+									"value": "username|pass"
+								},
+								{
+									"key": "equalTo",
+									"value": "Oscar|b2157e7b2ae716a747597717f1efb7a0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Datos del alumno",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/estudiantes?linkTo=id_login&equalTo=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"estudiantes"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "nombre,apellido_paterno",
+									"disabled": true
+								},
+								{
+									"key": "linkTo",
+									"value": "id_login"
+								},
+								{
+									"key": "equalTo",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderMode",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "startAt",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "endAt",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Conteo de asistencia por estudiante por día",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/asistencias?linkTo=fecha|id_estudiante&equalTo=2022-10-16|1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"asistencias"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "nombre,apellido_paterno",
+									"disabled": true
+								},
+								{
+									"key": "linkTo",
+									"value": "fecha|id_estudiante"
+								},
+								{
+									"key": "equalTo",
+									"value": "2022-10-16|1"
+								},
+								{
+									"key": "orderBy",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderMode",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "startAt",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "endAt",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Conteo de asistencia por estudiante por día CON RANGO",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/asistencias?linkTo=id_estudiante&equalTo=1&range=fecha&between1=2022-10-16 00:00:00&between2=2022-10-16 23:59:59",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"asistencias"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "nombre,apellido_paterno",
+									"disabled": true
+								},
+								{
+									"key": "linkTo",
+									"value": "id_estudiante"
+								},
+								{
+									"key": "equalTo",
+									"value": "1"
+								},
+								{
+									"key": "orderBy",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderMode",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "startAt",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "endAt",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "range",
+									"value": "fecha"
+								},
+								{
+									"key": "between1",
+									"value": "2022-10-16 00:00:00"
+								},
+								{
+									"key": "between2",
+									"value": "2022-10-16 23:59:59"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registro de asistencia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "id_estudiante",
+									"value": "1",
+									"type": "default"
+								},
+								{
+									"key": "",
+									"value": "testPass",
+									"type": "default",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/asistencias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"asistencias"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "testPost",
+									"disabled": true
+								},
+								{
+									"key": "pass",
+									"value": "b2157e7b2ae716a747597717f1efb7a0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registro de estudiantes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "testPostName",
+									"type": "default"
+								},
+								{
+									"key": "apellido_paterno",
+									"value": "testPass",
+									"type": "default"
+								},
+								{
+									"key": "apellido_materno",
+									"value": "apellido test",
+									"type": "default"
+								},
+								{
+									"key": "telefono",
+									"value": "999",
+									"type": "default"
+								},
+								{
+									"key": "correo",
+									"value": "correo@example.com",
+									"type": "default"
+								},
+								{
+									"key": "id_login",
+									"value": "666",
+									"type": "default"
+								},
+								{
+									"key": "escuela",
+									"value": "Escuela test",
+									"type": "default"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/D:/oscar/OneDrive/Imágenes/ZUMI.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/estudiantes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"estudiantes"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "testPost",
+									"disabled": true
+								},
+								{
+									"key": "pass",
+									"value": "b2157e7b2ae716a747597717f1efb7a0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registro de login Endpoint",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "testPostName",
+									"type": "default"
+								},
+								{
+									"key": "pass",
+									"value": "testPass",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "testPost",
+									"disabled": true
+								},
+								{
+									"key": "pass",
+									"value": "b2157e7b2ae716a747597717f1efb7a0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asistencias",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"relations"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "nombre,apellido_paterno",
+									"disabled": true
+								},
+								{
+									"key": "linkTo",
+									"value": "nombre|correo",
+									"disabled": true
+								},
+								{
+									"key": "equalTo",
+									"value": "TestName|test",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderMode",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "startAt",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "endAt",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "rel",
+									"value": "asistencias,estudiantes"
+								},
+								{
+									"key": "type",
+									"value": "asistencia,estudiante"
+								},
+								{
+									"key": "group",
+									"value": "id_estudiante",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener asistencias CON Rango",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=fecha&between1=2022-10-01&between2=2022-10-31&group=estudiantes.id_estudiante",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"relations"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "nombre,apellido_paterno",
+									"disabled": true
+								},
+								{
+									"key": "linkTo",
+									"value": "nombre|correo",
+									"disabled": true
+								},
+								{
+									"key": "equalTo",
+									"value": "TestName|test",
+									"disabled": true
+								},
+								{
+									"key": "orderBy",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "orderMode",
+									"value": "ASC",
+									"disabled": true
+								},
+								{
+									"key": "startAt",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "endAt",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "rel",
+									"value": "asistencias,estudiantes"
+								},
+								{
+									"key": "type",
+									"value": "asistencia,estudiante"
+								},
+								{
+									"key": "linkTo",
+									"value": "fecha"
+								},
+								{
+									"key": "between1",
+									"value": "2022-10-01"
+								},
+								{
+									"key": "between2",
+									"value": "2022-10-31"
+								},
+								{
+									"key": "group",
+									"value": "estudiantes.id_estudiante"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR ESTUDIANTE",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "nombre",
+									"value": "Oscarin",
+									"type": "default"
+								},
+								{
+									"key": "apellido_paterno",
+									"value": "Escutia",
+									"type": "default"
+								},
+								{
+									"key": "apellido_materno",
+									"value": "Izquierdo",
+									"type": "default"
+								},
+								{
+									"key": "telefono",
+									"value": "1234",
+									"type": "default"
+								},
+								{
+									"key": "correo",
+									"value": "correo 1",
+									"type": "default"
+								},
+								{
+									"key": "escuela",
+									"value": "Escuela 1",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/estudiantes?id=1&nameId=id_estudiante",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"estudiantes"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "nameId",
+									"value": "id_estudiante"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR ESTUDIANTE POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Oscarrrrrr",
+									"type": "default"
+								},
+								{
+									"key": "apellido_paterno",
+									"value": "Escutia",
+									"type": "default"
+								},
+								{
+									"key": "apellido_materno",
+									"value": "Izquierdo",
+									"type": "default"
+								},
+								{
+									"key": "telefono",
+									"value": "1234",
+									"type": "default"
+								},
+								{
+									"key": "correo",
+									"value": "correo 1",
+									"type": "default"
+								},
+								{
+									"key": "escuela",
+									"value": "Escuela 1",
+									"type": "default"
+								},
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/D:/oscar/OneDrive/Imágenes/invoco al puerco.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/estudiantes?id=1&nameId=id_estudiante&edit=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"estudiantes"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "nameId",
+									"value": "id_estudiante"
+								},
+								{
+									"key": "edit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR LOGIN bueno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "testPutRequest2",
+									"type": "default"
+								},
+								{
+									"key": "pass",
+									"value": "abc123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/login?id=12&nameId=id_login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"login"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "12"
+								},
+								{
+									"key": "nameId",
+									"value": "id_login"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EDITAR LOGIN POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "Juja",
+									"type": "default"
+								},
+								{
+									"key": "pass",
+									"value": "abc123456",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api-transporte/login?id=12&nameId=id_login&edit=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api-transporte",
+								"login"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "12"
+								},
+								{
+									"key": "nameId",
+									"value": "id_login"
+								},
+								{
+									"key": "edit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET: Tablas, WHERE MULTIPLE, ORDER BY, ORDER MODE, LIMIT START END",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api-transporte/estudiantes?orderBy=1&orderMode=ASC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-transporte",
+						"estudiantes"
+					],
+					"query": [
+						{
+							"key": "select",
+							"value": "nombre,apellido_paterno",
+							"disabled": true
+						},
+						{
+							"key": "linkTo",
+							"value": "nombre|correo",
+							"disabled": true
+						},
+						{
+							"key": "equalTo",
+							"value": "TestName|test",
+							"disabled": true
+						},
+						{
+							"key": "orderBy",
+							"value": "1"
+						},
+						{
+							"key": "orderMode",
+							"value": "ASC"
+						},
+						{
+							"key": "startAt",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "endAt",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: CON RANGO",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api-transporte/asistencias?linkTo=fecha&between1=2022-10-01&between1=2022-10-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-transporte",
+						"asistencias"
+					],
+					"query": [
+						{
+							"key": "select",
+							"value": "nombre,apellido_paterno",
+							"disabled": true
+						},
+						{
+							"key": "linkTo",
+							"value": "nombre|correo",
+							"disabled": true
+						},
+						{
+							"key": "equalTo",
+							"value": "TestName|test",
+							"disabled": true
+						},
+						{
+							"key": "orderBy",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "orderMode",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "startAt",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "endAt",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "linkTo",
+							"value": "fecha"
+						},
+						{
+							"key": "between1",
+							"value": "2022-10-01"
+						},
+						{
+							"key": "between1",
+							"value": "2022-10-31"
+						},
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: Tablas, WHERE MULTIPLE, ORDER BY, ORDER MODE, LIMIT START END CON TABLAS RELACIONADAS Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api-transporte/relations?linkTo=nombre|correo&equalTo=TestName|test&rel=asistencias,estudiantes&type=asistencia,estudiante",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-transporte",
+						"relations"
+					],
+					"query": [
+						{
+							"key": "select",
+							"value": "nombre,apellido_paterno",
+							"disabled": true
+						},
+						{
+							"key": "linkTo",
+							"value": "nombre|correo"
+						},
+						{
+							"key": "equalTo",
+							"value": "TestName|test"
+						},
+						{
+							"key": "orderBy",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "orderMode",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "startAt",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "endAt",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "rel",
+							"value": "asistencias,estudiantes"
+						},
+						{
+							"key": "type",
+							"value": "asistencia,estudiante"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET: CON TABLAS RELACIONADAS Y RANGO",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"courseName\":\"React\",\r\n    \"rating\":4.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=fecha&between1=2022-10-01&between2=2022-10-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-transporte",
+						"relations"
+					],
+					"query": [
+						{
+							"key": "select",
+							"value": "nombre,apellido_paterno",
+							"disabled": true
+						},
+						{
+							"key": "linkTo",
+							"value": "nombre|correo",
+							"disabled": true
+						},
+						{
+							"key": "equalTo",
+							"value": "TestName|test",
+							"disabled": true
+						},
+						{
+							"key": "orderBy",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "orderMode",
+							"value": "ASC",
+							"disabled": true
+						},
+						{
+							"key": "startAt",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "endAt",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "rel",
+							"value": "asistencias,estudiantes"
+						},
+						{
+							"key": "type",
+							"value": "asistencia,estudiante"
+						},
+						{
+							"key": "linkTo",
+							"value": "fecha"
+						},
+						{
+							"key": "between1",
+							"value": "2022-10-01"
+						},
+						{
+							"key": "between2",
+							"value": "2022-10-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registro de login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "testPostName",
+							"type": "default"
+						},
+						{
+							"key": "pass",
+							"value": "testPass",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api-transporte/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-transporte",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "testPost",
+							"disabled": true
+						},
+						{
+							"key": "pass",
+							"value": "b2157e7b2ae716a747597717f1efb7a0",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EDITAR LOGIN",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "testPutRequest2",
+							"type": "default"
+						},
+						{
+							"key": "pass",
+							"value": "abc123456",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost/api-transporte/login?id=12&nameId=id_login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api-transporte",
+						"login"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "12"
+						},
+						{
+							"key": "nameId",
+							"value": "id_login"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

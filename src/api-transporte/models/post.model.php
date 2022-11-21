@@ -16,11 +16,8 @@ class PostModel {
         }
         /**END IMAGE UPLOAD */
 
-        /** ENCRYPT PASS */
-        if(isset($data['pass'])){
-            $data['pass'] = md5($data['pass']);
-        }
-        
+        /**ENCRIPT PASS */
+        $data['pass'] = md5($data['pass']);
 
         $columns = "";
         $params = "";

@@ -52,6 +52,16 @@ class GetController {
         $return->functionResponse($response);
     }
 
+
+    /** BUSQUEDA CON FILTRO CON RANGOS --------------- */
+    static public function getDataRangeFilter($table, $select, $linkTo, $equalTo, $range, $between1, $between2, $orderBy, $orderMode, $startAt, $endAt) {
+
+        $response = GetModel::getDataRangeFilter($table, $select, $linkTo, $equalTo, $range, $between1, $between2, $orderBy, $orderMode, $startAt, $endAt);
+
+        $return = new GetController();
+        $return->functionResponse($response);
+    }
+
     /** BUSQUEDA CON FILTRO ENTRE TABLAS RELACIONADAS */
     static public function getRelDataFilter($rel, $type, $select, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt) {
 

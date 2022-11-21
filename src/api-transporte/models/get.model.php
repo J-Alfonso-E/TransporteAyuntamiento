@@ -174,6 +174,47 @@ class GetModel {
     }
 
 
+    /** BUSQUEDA CON FILTRO CON RANGOS */
+    static public function getDataRangeFilter($table, $select, $linkTo, $equalTo, $range, $between1, $between2, $orderBy, $orderMode, $startAt, $endAt) {
+
+        /** SEPARANDO MULTIPLES CONDICIONES DE FILTRO */
+        $linktoArray = explode("|", $linkTo);
+        $equalToArray = explode("|", $equalTo);
+
+        /** MILTIPLES FILTROS ALMACENADOS EN UNA VARIABLE */
+        $linkToText = "";
+        if (count($linktoArray) > 1) {
+            foreach ($linktoArray as $key => $value) {
+                if ($key > 0) {
+                    $linkToText .= "AND " . $value . " = :" . $value . " ";
+                }
+            }
+        }
+
+        $sql = "SELECT $select FROM  $table WHERE $range BETWEEN '$between1' AND '$between2' AND $linktoArray[0] = :$linktoArray[0] $linkToText";
+
+
+        /**APLICANDO FILTROS Y ORDEN */
+        if ($orderBy != null && $orderMode != null) {
+            $sql .= " ORDER BY $orderBy $orderMode";
+        }
+
+        if ($startAt != null && $endAt != null) {
+            $sql .= " LIMIT $startAt, $endAt";
+        }
+
+        $stmt = Connection::connect()->prepare($sql);
+
+        foreach ($linktoArray as $key => $value) {
+            $stmt->bindParam(":" . $value, $equalToArray[$key], PDO::PARAM_STR);
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+
     /**
      * ==================================== 
      * BUSQUEDA CON FILTRO DE TABLAS RELACIONADAS

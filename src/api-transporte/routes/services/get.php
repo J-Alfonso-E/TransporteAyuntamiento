@@ -34,9 +34,17 @@ if (isset($_GET['linkTo']) && isset($_GET['equalTo'])) {
      * BUSQUEDA CON FILTRO CON RANGO 
      * =================================
      * */
-    if (isset($_GET['linkTo']) && isset($_GET['between1']) && isset($_GET['between2'])) {
-
+    if (isset($_GET['linkTo']) && isset($_GET['equalTo']) && isset($_GET['range']) && isset($_GET['between1']) && isset($_GET['between2'])) {
+        $linkTo = $_GET['linkTo'];
+        $equalTo = $_GET['equalTo'];
+        $range = $_GET['range'];
         /** FALTA AGREGAR */
+        /** 
+         * ==========================
+         * PETICIONES GET CON RANGO CON FILTRO
+         * ==========================
+         * */
+        $response->getDataRangeFilter($table, $select, $linkTo, $equalTo, $range, $_GET['between1'], $_GET['between2'], $orderBy, $orderMode, $startAt, $endAt);
     } else {
 
         /** 
@@ -71,9 +79,9 @@ if (isset($_GET['linkTo']) && isset($_GET['equalTo'])) {
     }
 }
 /** 
- * ==========================
+ * ========================== ========================== ==========================
  * BUSQUEDAS SIN FILTRO 
- * ==========================
+ * ========================== ========================== ==========================
  * */
 else {
 
