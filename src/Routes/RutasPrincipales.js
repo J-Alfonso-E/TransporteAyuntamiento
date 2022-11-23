@@ -17,7 +17,7 @@ export const RutasPrincipales = () => {
             {/* -----------------Seccion Administrativa -----------------*/ }
             <Route path="/Administrativo" element={<MainPage />} />
             <Route path="/Administrativo/ListaBecarios" element={<ListaBecarios />} />
-            <Route path="/Administrativos/RegistrarBecario" element={<RegistrarBecario />} />
+            <Route path="/Administrativo/RegistrarBecario" element={<RegistrarBecario />} />
 
             {/* -------Seccion Becario ------------------*/}
             <Route path="/Becario" element={<MainPageB />} />

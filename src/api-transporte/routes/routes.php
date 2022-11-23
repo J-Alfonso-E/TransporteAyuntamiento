@@ -75,7 +75,9 @@ if (count($routesArray) == 2 && isset($_SERVER['REQUEST_METHOD'])) {
 
     //echo '<img src="data:image/png;base64,' . base64_encode(file_get_contents("../" . $_SERVER['REQUEST_URI'])) . '">';
 
-    //echo '<img src="data:image/png;base64,' . base64_encode(file_get_contents("public/uploaded_files/0fe15f058e569a1b01407fb92a8fae8d.png")) . '">';
+    //$imagenTexto = file_get_contents("public/uploaded_files/f2b608fc23dc9f646810742d75ad89a3.jpg");
+    //echo $imagenTexto;
+    //echo '<img src="data:image/png;base64,' . base64_encode($imagenTexto) . '">';
 
     //echo $_SERVER['REQUEST_URI'];
 }

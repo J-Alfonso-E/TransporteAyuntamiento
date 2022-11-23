@@ -2,5 +2,10 @@ Options All -Indexes
 Options -MultiViews
 
 RewriteEngine On
+
+# Do not send the following URL(s) to "api.php"
+RewriteRule ^public/uploaded_files/ - [L]
+
 RewriteCond ${REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSL,L]
+

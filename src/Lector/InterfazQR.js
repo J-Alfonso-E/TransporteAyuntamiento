@@ -8,6 +8,7 @@ import { LeyendaRegistro } from '../Componentes/LeyendaRegistro.js';
 
 const horaRender =  new Date();
 let timestamp;
+const token = "bc3d6d9ee482525d0ae17b28b7fd2778";
 
 
 class LectorQR extends React.Component {
@@ -69,9 +70,18 @@ class LectorQR extends React.Component {
         console.log(
             "App [result]", decodedResult);
 
-            //console.log(decodedResult);
-            timestamp = new Date();
-            RegistrarAsistencia();
+            console.log(decodedResult);
+            
+            if(decodedResult.decodedText === token){
+                console.log("Tiene Que hacer el registro");
+                RegistrarAsistencia();
+                timestamp = new Date();
+            }
+            else {
+                alert("Codigo QR No valido");
+                
+            }
+            //
 
         // let decodedResults = this.state.decodedResults;
         // decodedResults.push(decodedResult);

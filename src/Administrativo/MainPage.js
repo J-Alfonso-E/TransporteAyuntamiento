@@ -6,7 +6,28 @@ import { DashboardGeneral } from "../Dashboard/DashboardGeneral";
 
 export const MainPage = () => {
 
-    const [Fechas, SetFechas] = useState({ FechaInicio: "", FechaFinal: "" });
+    let date = new Date();
+    const ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    let Mes;
+    const Anio = date.getFullYear();
+
+    if (date.getMonth() < 8) {
+        Mes = "0" + (date.getMonth() + 1);
+    }
+    else {
+        Mes = date.getMonth() + 1;
+    }
+
+
+
+    //console.log("El primer día es: " + primerDia.getDate());
+    //console.log("El ultimo día es: " + ultimoDia.getDate());
+
+
+    const [Fechas, SetFechas] = useState({
+        FechaInicio: Anio + "-" + Mes + "-01",
+        FechaFinal: Anio + "-" + Mes + "-" + ultimoDia.getDate()
+    });
     const [DataApi, SetDataApi] = useState({});
 
     const CambioFechas = ({ target }) => {
@@ -16,9 +37,16 @@ export const MainPage = () => {
         })
     }
 
+
+
+
+
+
+
+
     const Busqueda = () => {
 
-        fetch(`http://localhost/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=fecha&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59&group=estudiantes.id_estudiante`, {
+        fetch(`https://transportesflores.info/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=fecha&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59&group=estudiantes.id_estudiante`, {
             method: "GET"
 
         })
@@ -52,22 +80,24 @@ export const MainPage = () => {
                         <div className="row pl-3">
                             <div className="col-md-2 col-6">
                                 <label>Fecha Inicio</label>
-                                <input className="form-control" type="date" name="FechaInicio" onChange={CambioFechas} />
+                                <input className="form-control" type="date" name="FechaInicio" value={Fechas.FechaInicio} onChange={CambioFechas} />
                             </div>
 
                             <div className="col-md-2 col-6">
                                 <label>Fecha Final</label>
-                                <input className="form-control" type="date" name="FechaFinal" onChange={CambioFechas} />
+                                <input className="form-control" type="date" name="FechaFinal" value={Fechas.FechaFinal} onChange={CambioFechas} />
                             </div>
 
                             <div className="col-md-2 col-4 mt-4">
                                 <button className="btn btn-primary" onClick={Busqueda}>Buscar</button>
                             </div>
 
+                            {/*
                             <div className="col-md-4 col-4 mt-4">
                                 <label>Fecha Inicial: {Fechas.FechaInicio} </label> <br />
                                 <label>Fecha Final: {Fechas.FechaFinal}</label>
                             </div>
+                            */}
 
                         </div>
 

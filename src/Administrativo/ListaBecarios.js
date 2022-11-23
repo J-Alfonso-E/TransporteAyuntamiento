@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { RegistroListaBecarios } from "../Componentes/RegistroListaBecarios";
 import { Dashboard } from "../Dashboard/DashboardAdmin"
 import { DashboardGeneral } from "../Dashboard/DashboardGeneral";
@@ -52,7 +52,7 @@ export const ListaBecarios = () => {
             CarreraParam = "|Carrera";
         }
 
-        const peticion = `http://localhost/api-transporte/estudiantes?linkTo=Activo${escuelaParam}${CarreraParam}&equalTo=1${escuelaDato}${CarreraDato}`;
+        const peticion = `https://transportesflores.info/api-transporte/estudiantes?linkTo=Activo${escuelaParam}${CarreraParam}&equalTo=1${escuelaDato}${CarreraDato}`;
 
         console.log(peticion);
 
@@ -112,23 +112,30 @@ export const ListaBecarios = () => {
         Datos.append("telefono", IdEstudiante.telefono);
         Datos.append("correo", IdEstudiante.correo);
         Datos.append("escuela", IdEstudiante.escuela);
-        Datos.append('_method', 'PUT');
+        Datos.append("Carrera", IdEstudiante.Carrera);
+        
+        
 
-        const ruta = `http://localhost/api-transporte/estudiantes?id=${IdEstudiante.id_estudiante}&nameId=id_estudiante&_method=PUT`;
+        const ruta = `https://transportesflores.info/api-transporte/estudiantes?id=${IdEstudiante.id_estudiante}&nameId=id_estudiante&edit=1`;
 
         console.log(ruta);
 
         const RespuestaRaw = await fetch(ruta, {
-            method: "PUT",
+            method: "POST",
             body: Datos
         });
 
         const Respuesta = await RespuestaRaw.json();
 
-        console.log(Respuesta)
+        console.log(Respuesta);
+
+        Busqueda();
 
     }
 
+    useEffect(() => {
+        Busqueda();
+    }, []);
     
 
 
@@ -260,20 +267,26 @@ export const ListaBecarios = () => {
                                 <input type="text" className="form-control" name="escuela" value={IdEstudiante.escuela} placeholder="Instituto o Universidad" onChange={HandleChange}/>
 
                             </div>
+
+                            <div className="col-12 col-md-4">
+                                <label>Imagen de Perfil</label>
+                                <input type="text" className="form-control" name="ImgPerfil" id="ImgPerfil" placeholder="Instituto o Universidad" />
+
+                            </div>
                         </div>
 
-                        <div className="row">
+                        {/*<div className="row">
                             <label>Nombre: {IdEstudiante.nombre}</label><br />
                             <label>Apellido Paterno: {IdEstudiante.apellido_paterno}</label><br />
                             <label>Apellido Paterno: {IdEstudiante.apellido_materno}</label><br />
                             <label>Carrera: {IdEstudiante.Carrera}</label><br />
                             <label>Universidad o Instituto: {IdEstudiante.escuela}</label><br />
 
-                        </div>
+                                </div>*/}
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-primary" onClick={Actualizar}>Guardar Cambios</button>
+                        <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={Actualizar}>Guardar Cambios</button>
                     </div>
                 </div>
             </div>

@@ -32,8 +32,9 @@ export const Login = () => {
     const InicioSession = () => {
         console.log("Intento de Inicio de Sesion");
         console.log(values);
+        console.log("msj");
 
-        fetch(`http://localhost/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`, {
+        fetch(`https://transportesflores.info/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`, {
             method: "GET"
             
         })
@@ -129,22 +130,7 @@ export const Login = () => {
 
                         </div>
 
-                        <div className="row">
-                            <div className="col-md-12 col-sm-12 mt-2">
-                                <label>Usuario: {values.Usuario} </label>
-
-                            </div>
-
-                            <div className="col-md-12 col-sm-12 mt-2">
-                                <label>Contraseña: {values.Password}</label>
-
-                            </div>
-
-                        </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>

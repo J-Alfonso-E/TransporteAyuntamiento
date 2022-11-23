@@ -36,7 +36,7 @@ export const RegistrarBecario = () => {
         formdatalogin.append('username', Formulario.Usuario);
         formdatalogin.append('pass', Formulario.Password);
 
-        const RespuestaRawLogin = await fetch(`http://transportesflores.info/api-transporte/login`, {
+        const RespuestaRawLogin = await fetch(`https://transportesflores.info/api-transporte/login`, {
             method: 'POST',
             body: formdatalogin
         });
@@ -63,7 +63,7 @@ export const RegistrarBecario = () => {
         //console.log(formdatausuario);
         
 
-        const RespuestaRawUsuario = await fetch(`http://transportesflores.info/api-transporte/estudiantes`, {
+        const RespuestaRawUsuario = await fetch(`https://transportesflores.info/api-transporte/estudiantes`, {
             method: 'POST',
             body: formdatausuario
         });

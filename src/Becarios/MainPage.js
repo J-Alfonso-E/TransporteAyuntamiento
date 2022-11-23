@@ -25,7 +25,7 @@ export const MainPageB = () => {
 
         let idEstudiante;
 
-        await fetch(`http://localhost/api-transporte/estudiantes?linkTo=id_login&equalTo=2`, {
+        await fetch(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=2`, {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
         .then(Respuesta => {
@@ -34,7 +34,7 @@ export const MainPageB = () => {
         })
 
         
-        const RespuestaRaw = await fetch(`http://localhost/api-transporte/asistencias?linkTo=fecha|id_estudiante&equalTo=2022-11-20|${idEstudiante}`, {
+        const RespuestaRaw = await fetch(`https://transportesflores.info/api-transporte/asistencias?linkTo=id_estudiante&equalTo=2&range=fecha&between1=2022-11-20 00:00:00&between2=2022-11-20 23:59:59`, {
         method: 'GET'});
     
     const Datos = await RespuestaRaw.json();

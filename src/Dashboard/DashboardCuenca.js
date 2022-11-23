@@ -1,7 +1,25 @@
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 export const DashboardC = () => {
+
+    let cookie = new Cookies();
+    let navigate = useNavigate();
+
+    
+    const CerrarSesion = () => {
+        
+    
+        //console.log(cookie.get("Id"));
+        //console.log(cookie.get("Usuario"));
+        //console.log(cookie.get("TipoUsuario"));
+    
+        cookie.remove("Usuario");
+        cookie.remove("Id");
+        cookie.set("TipoUsuario", 0);
+    
+        navigate("/");
+    }
     return (
 
         <>
@@ -12,7 +30,7 @@ export const DashboardC = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <button className="btn btn-danger"> Cerrar Session</button>
+                <button className="btn btn-danger" onClick={CerrarSesion}> Cerrar Session</button>
                 <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
