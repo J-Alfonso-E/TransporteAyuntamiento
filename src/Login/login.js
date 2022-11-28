@@ -34,7 +34,7 @@ export const Login = () => {
         console.log(values);
         console.log("msj");
 
-        fetch(`https://transportesflores.info/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`, {
+        fetch(encodeURI(`https://transportesflores.info/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`), {
             method: "GET"
             
         })
@@ -111,14 +111,14 @@ export const Login = () => {
                                     <label>Usuario</label>
                                 </div>
                                 <div className="col-md-12 col-sm-12">
-                                    <input type="text" name="Usuario" value={values.Usuario} onChange={DatosSesion} className="form-control" placeholder="Email" />
+                                    <input type="text" name="Usuario" value={values.Usuario} onChange={DatosSesion} className="form-control" placeholder="Email" required/>
                                 </div>
 
                                 <div className="col-md-12 col-sm-12 mt-2">
                                     <label>Contraseña</label>
                                 </div>
                                 <div className="col-md-12 col-sm-12 ">
-                                    <input type="text" name="Password" className="form-control" onChange={DatosSesion}placeholder="Contraseña" />
+                                    <input type="password" name="Password" className="form-control" onChange={DatosSesion}placeholder="Contraseña"  required/>
                                 </div>
 
                                 <div className="col-md-5 col-sm-12 mt-2 pb-4">

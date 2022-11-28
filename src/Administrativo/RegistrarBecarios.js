@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { AlertaFalloRegistro } from "../Componentes/AlertaFalloRegistro";
 import { AlertaRegistroExitoso } from "../Componentes/AlertaRegistroExitoso";
 import { Dashboard } from "../Dashboard/DashboardAdmin"
@@ -6,6 +8,30 @@ import { DashboardGeneral } from "../Dashboard/DashboardGeneral"
 
 
 export const RegistrarBecario = () => {
+
+    /*------------Parte de los permisos------*/
+
+    const cookie = new Cookies();
+    const navigate = useNavigate();
+
+    const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 : parseInt(cookie.get("TipoUsuario"));
+    console.log(TipoUsuario);
+
+    switch (TipoUsuario) {
+
+        case 2:
+
+            navigate("/Becario");
+            break;
+
+        case 3:
+            navigate("/Cuenca");
+
+            break;
+
+        case 0:
+            navigate("/");
+    }
 
     const [Formulario, SetFormulario] = useState({
         Nombre: '',
@@ -24,9 +50,10 @@ export const RegistrarBecario = () => {
 
     const [StatusRespuesta, SetStatus] = useState(0);
 
-    const handleChange = ({target}) => {
-        SetFormulario({...Formulario,
-            [target.name] : target.value
+    const handleChange = ({ target }) => {
+        SetFormulario({
+            ...Formulario,
+            [target.name]: target.value
         })
     }
 
@@ -61,9 +88,9 @@ export const RegistrarBecario = () => {
         formdatausuario.append("Carrera", Formulario.Carrera);
 
         //console.log(formdatausuario);
-        
 
-        const RespuestaRawUsuario = await fetch(`https://transportesflores.info/api-transporte/estudiantes`, {
+
+        const RespuestaRawUsuario = await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes`), {
             method: 'POST',
             body: formdatausuario
         });
@@ -72,54 +99,54 @@ export const RegistrarBecario = () => {
 
         console.log(RespuestaUsuario);
 
-        if(RespuestaUsuario.status == "200"){
+        if (RespuestaUsuario.status == "200") {
             SetStatus("200");
         }
-        else{
+        else {
             SetStatus("404");
         }
 
-        
+
 
         SetFormulario({
             Nombre: '',
-        ApePaterno: '',
-        ApeMaterno: '',
-        Usuario: '',
-        Carrera: '',
-        Email: '',
-        Escuela: '',
-        Celular: '',
-        Tutor: '',
-        Password: '',
-        ConfPassword: '',
-        Vigencia: ''
+            ApePaterno: '',
+            ApeMaterno: '',
+            Usuario: '',
+            Carrera: '',
+            Email: '',
+            Escuela: '',
+            Celular: '',
+            Tutor: '',
+            Password: '',
+            ConfPassword: '',
+            Vigencia: ''
         })
     }
 
     const Alerta = () => {
-        switch(StatusRespuesta){
+        switch (StatusRespuesta) {
             case 200:
-                return(
+                return (
                     <AlertaRegistroExitoso />
                 )
                 break;
             case 404:
                 return (
                     <AlertaFalloRegistro />
-                    )
+                )
                 break;
 
-                default:
-                    return;
-                    break;
+            default:
+                return;
+                break;
         }
     }
 
     let $SeleccionArchivo = document.querySelector("#Imagen"), $imagenPrevisualizacion = document.querySelector("#imgPreview");
 
     const onChangeImg = () => {
-        
+
         const archivos = $SeleccionArchivo.files;
 
         //console.log($SeleccionArchivo.name);
@@ -129,11 +156,11 @@ export const RegistrarBecario = () => {
             $imagenPrevisualizacion.src = "";
             return;
         }
-          // Ahora tomamos el primer archivo, el cual vamos a previsualizar
+        // Ahora tomamos el primer archivo, el cual vamos a previsualizar
         const primerArchivo = archivos[0];
-          // Lo convertimos a un objeto de tipo objectURL
+        // Lo convertimos a un objeto de tipo objectURL
         const objectURL = URL.createObjectURL(primerArchivo);
-          // Y a la fuente de la imagen le ponemos el objectURL
+        // Y a la fuente de la imagen le ponemos el objectURL
         $imagenPrevisualizacion.src = objectURL;
 
 
@@ -145,7 +172,7 @@ export const RegistrarBecario = () => {
         <>
             <Dashboard />
             {/*<DashboardGeneral />*/}
-            <div  className="container pt-5 mt-2">
+            <div className="container pt-5 mt-2">
                 <h2>RegistrarBecario</h2>
 
                 {StatusRespuesta != "" ? (StatusRespuesta == "200" ? <AlertaRegistroExitoso /> : <AlertaFalloRegistro />) : ""}
@@ -161,18 +188,18 @@ export const RegistrarBecario = () => {
                                 <div className="row">
 
                                     <div className="col-12">
-                                    <img id="imgPreview" className="img-thumbnail rounded" width="350px" height="350px"/>
+                                        <img id="imgPreview" className="img-thumbnail rounded" width="350px" height="350px" />
                                     </div>
-                                
+
 
                                 </div>
 
                                 <br />
                                 <div className="row">
                                     <div className="col-12 col-md-12">
-                                    <input type="file" id="Imagen" className="form-control" onChange={onChangeImg} />
+                                        <input type="file" id="Imagen" className="form-control" onChange={onChangeImg} />
                                     </div>
-                                
+
                                 </div>
                             </div >
 
@@ -265,55 +292,55 @@ export const RegistrarBecario = () => {
                                 <div className="row ">
 
                                     <div className="col-12 col-md-12">
-                                        
-                                        <input type="date" name="Vigencia" className="form-control form-control-user"  onChange={handleChange}  placeholder="Correo Electronico" />
+
+                                        <input type="date" name="Vigencia" className="form-control form-control-user" onChange={handleChange} placeholder="Correo Electronico" />
                                     </div>
 
                                 </div>
 
                                 <div className="row pt-2">
 
-                            <div className="col-12 col-md-12">
-                                <button className="btn btn-primary btn-Registro-Becario d-block d-xxl-flex justify-content-xxl-center align-items-xxl-center btn-user w-100" onClick={handleSubmit}>Guardar</button>
-                            </div>
+                                    <div className="col-12 col-md-12">
+                                        <button className="btn btn-primary btn-Registro-Becario d-block d-xxl-flex justify-content-xxl-center align-items-xxl-center btn-user w-100" onClick={handleSubmit}>Guardar</button>
+                                    </div>
 
-                            <div className="col-12 col-md-12">
-                                <label>Nombre: {Formulario.Nombre}</label> <br />
-                                <label>ApePaterno: {Formulario.ApePaterno}</label>
-                                <br />
-                                <label>ApeMarterno: {Formulario.ApeMaterno}</label>
-                                <br />
-                                <label>Carrera: {Formulario.Carrera}</label>
-                                <br />
-                                <label>Usuario: {Formulario.Usuario}</label>
-                                <br />
-                                <label>Instituto o Universidad: {Formulario.Escuela}</label>
-                                <br />
-                                <label>Celular: {Formulario.Celular}</label>
-                                <br />
-                                <label>Tutor: {Formulario.Tutor}</label>
-                                <br />
-                                <label>Password: {Formulario.Password}</label>
-                                <br />
-                                <label>Confirm Passwor: {Formulario.ConfPassword}</label>
-                                <br />
-                                <label>Email: {Formulario.Email}</label>
-                                <br />
-                                <label>Vigencia: {Formulario.Vigencia}</label>
-                            </div>
+                                    <div className="col-12 col-md-12">
+                                        <label>Nombre: {Formulario.Nombre}</label> <br />
+                                        <label>ApePaterno: {Formulario.ApePaterno}</label>
+                                        <br />
+                                        <label>ApeMarterno: {Formulario.ApeMaterno}</label>
+                                        <br />
+                                        <label>Carrera: {Formulario.Carrera}</label>
+                                        <br />
+                                        <label>Usuario: {Formulario.Usuario}</label>
+                                        <br />
+                                        <label>Instituto o Universidad: {Formulario.Escuela}</label>
+                                        <br />
+                                        <label>Celular: {Formulario.Celular}</label>
+                                        <br />
+                                        <label>Tutor: {Formulario.Tutor}</label>
+                                        <br />
+                                        <label>Password: {Formulario.Password}</label>
+                                        <br />
+                                        <label>Confirm Passwor: {Formulario.ConfPassword}</label>
+                                        <br />
+                                        <label>Email: {Formulario.Email}</label>
+                                        <br />
+                                        <label>Vigencia: {Formulario.Vigencia}</label>
+                                    </div>
 
+
+                                </div>
+
+
+
+                            </div>
 
                         </div>
 
 
 
-                            </div>
 
-                        </div>
-
-
-
-                        
                     </div>
 
                 </div>

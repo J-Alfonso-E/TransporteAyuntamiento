@@ -134,11 +134,18 @@ class GetModel {
      * ====================================
      * */
 
+    /**USADO PARA LOGIN */
     static public function getDataFilter($table, $select, $linkTo, $equalTo, $orderBy, $orderMode, $startAt, $endAt) {
 
         /** SEPARANDO MULTIPLES CONDICIONES DE FILTRO */
         $linktoArray = explode("|", $linkTo);
         $equalToArray = explode("|", $equalTo);
+
+        /**PASS */
+        if (isset($linktoArray[0]) && $linktoArray[0] == 'username' && isset($linktoArray[1]) && $linktoArray[1] == 'pass') {
+            $equalToArray[1] = md5($equalToArray[1]);
+        }
+
 
         /** MILTIPLES FILTROS ALMACENADOS EN UNA VARIABLE */
         $linkToText = "";

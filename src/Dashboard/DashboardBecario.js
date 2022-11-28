@@ -7,7 +7,7 @@ export const DashboardB = () => {
     let navigate = useNavigate();
 
     const CerrarSesion = () => {
-
+        console.log("Cerrando Sesion");
 
         //console.log(cookie.get("Id"));
         //console.log(cookie.get("Usuario"));
@@ -30,11 +30,11 @@ export const DashboardB = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <button className="btn btn-danger"> Cerrar Session</button>
+                    <button className="btn btn-danger" onClick={CerrarSesion}> Cerrar Session</button>
                     <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                         <div className="offcanvas-header">
                             <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" onClick={CerrarSesion} aria-label="Close"></button>
+                            <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
                         </div>
                         <div className="offcanvas-body">
                             <ul className="navbar-nav justify-content-end ">

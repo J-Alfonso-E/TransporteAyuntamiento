@@ -45,7 +45,7 @@ export const Dashboard = () => {
                         <div className="offcanvas-body">
                             <ul className="navbar-nav justify-content-end ">
                                 <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/Administrativo/">Lista de Becarios</Link>
+                                    <Link className="nav-link active" aria-current="page" to="/Administrativo/">Lista de Asistencia</Link>
                                 </li>
 
 

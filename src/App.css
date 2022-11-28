@@ -1,3 +1,8 @@
+.BannerLogin {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+}
+
 .btn-cerrar-sesion {
   background-color: rgb(152, 0, 0);
   border-radius: 160.6px;
@@ -11,7 +16,12 @@
 }
 
 body {
-  background-color: lightgray;
+  /*Configuracion inicial del login*/
+  background-image: url(../src/Imagenes/pexels-tyler-lastovich-937783.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  /*width: 100vh;*/
 } 
 
 
@@ -32,7 +42,10 @@ body {
   border-radius: 10rem;
 }
 
-
+.LoginSection {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+}
 
 .Span-Vigencia-Registro {
   color: rgb(255, 255, 255);

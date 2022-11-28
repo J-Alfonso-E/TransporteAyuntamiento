@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import { AvisoRegistroNegado } from "../Componentes/NoRegistrodeAsistencia";
 import { DashboardB } from "../Dashboard/DashboardBecario";
 import { DashboardGeneral } from "../Dashboard/DashboardGeneral";
@@ -8,9 +10,62 @@ import LectorQR from "../Lector/InterfazQR";
 
 export const MainPageB = () => {
 
-    //const Temp = new Date().now();
-    //const FechaActual = Temp.getDay() +"-" + (Temp.getMonth()+1) +"-" + Temp.getFullYear();
+    /*------------Parte de los permisos------*/
+
+    const cookie = new Cookies();
+    const navigate = useNavigate();
+
+    const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 :parseInt(cookie.get("TipoUsuario"));
+    console.log(TipoUsuario);
+
+    switch(TipoUsuario){
+
+        case 1:
+            
+            navigate("/Administrativo");
+        break;
+
+        case 3:
+            navigate("/Cuenca");
+
+        break;
+
+        case 0: 
+            navigate("/");
+    }
+    
+
+    const Temp = new Date();
+    const FechaActual = Temp.getDay() +"-" + (Temp.getMonth()+1) +"-" + Temp.getFullYear();
     const FechaHora = new Date();
+
+    console.log(FechaActual);
+
+
+    const Usuario = cookie.get("Id");
+
+    let date = new Date();
+    let dia;
+    let Mes;
+    const Anio = date.getFullYear();
+
+    if (date.getMonth() < 8) {
+        Mes = "0" + (date.getMonth() + 1);
+    }
+    else {
+        Mes = date.getMonth() + 1;
+    }
+
+    if(date.getDate() < 9){
+        dia = "0" + date.getDate();
+    }
+    else{
+        dia = date.getDate();
+    }
+
+    const Fechacompleta = Anio + "-" + Mes + "-" + dia;
+
+
 
     const [Respuesta, SetRespuesta] = useState({});
     
@@ -25,7 +80,7 @@ export const MainPageB = () => {
 
         let idEstudiante;
 
-        await fetch(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=2`, {
+        await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=${Usuario}`), {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
         .then(Respuesta => {
@@ -34,7 +89,7 @@ export const MainPageB = () => {
         })
 
         
-        const RespuestaRaw = await fetch(`https://transportesflores.info/api-transporte/asistencias?linkTo=id_estudiante&equalTo=2&range=fecha&between1=2022-11-20 00:00:00&between2=2022-11-20 23:59:59`, {
+        const RespuestaRaw = await fetch(encodeURI(`https://transportesflores.info/api-transporte/asistencias?linkTo=id_estudiante&equalTo=2&range=hora&between1=${Fechacompleta} 00:00:00&between2=${Fechacompleta} 23:59:59`), {
         method: 'GET'});
     
     const Datos = await RespuestaRaw.json();
