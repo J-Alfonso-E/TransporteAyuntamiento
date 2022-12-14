@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { DashboardC } from "../Dashboard/DashboardCuenca"
@@ -31,13 +33,100 @@ export const MainPageC = () => {
         case 0: 
             navigate("/");
     }
+
+    const [DataApi, SetDataApi] = useState();
+
+    let date = new Date();
+    const ultimoDia = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    let Mes;
+    let dia;
+    const Anio = date.getFullYear();
+
+    if (date.getMonth() < 8) {
+        Mes = "0" + (date.getMonth() + 1);
+    }
+    else {
+        Mes = date.getMonth() + 1;
+    }
+
+    if(date.getDate() <= 9){
+        dia = "0" + date.getDate();
+    }
+    else {
+        dia = date.getDate();
+    }
+
+    const Fecha = Anio + "-" + Mes + "-" + dia;
+
+    const Busqueda = () => {
+
+        fetch(encodeURI(`https://transportesflores.info/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=hora&between1=${Fecha} 00:00:00&between2=${Fecha} 23:59:59&group=estudiantes.id_estudiante`), {
+            method: "GET"
+
+        })
+            .then(responseraw => responseraw.json())
+            .then(respuesta => {
+                console.log(respuesta.results);
+                //SetDataApi(respuesta.results);
+
+                SetDataApi(
+                    respuesta.results.map(Registro => {
+                        return {
+                            ...Registro
+                            
+                        }
+
+                    })
+                )
+
+            })
+            .catch(err => {
+                console.log("Fallo en la Solicitud: " + err);
+            });
+    }
+
+    const columnas = [
+        {
+            name: "Nombre",
+            selector: row => row.nombre
+        },
+
+        {
+            name: "Apellido Paterno",
+            selector: row => row.apellido_paterno
+        },
+
+        {
+            name: "Apellido Materno",
+            selector: row => row.apellido_materno
+        },
+
+        {
+            name: "Asistencias",
+            selector: row => row.asistencias
+        },
+/*
+        {
+            name: "Opciones",
+            selector: row => row.boton
+        },
+
+*/
+    ]
+
+    useEffect(() => {
+        Busqueda()
+    }, [])
     
     return (
         <>
             <DashboardC />
             {/*<DashboardGeneral />*/}
-            <div className="container mt-5 pt-2">
-                <h2>Asistencia del día </h2>
+            <div className="container mt-5 pt-5">
+                <h2 className="LoginSection text-darl">Asistencia del día </h2>
+
+                <DataTable columns={columnas} data={DataApi} pagination />
+                {/*
                 <table className="table">
                     <thead>
                         <tr>
@@ -48,7 +137,7 @@ export const MainPageC = () => {
                     </thead>
 
                 </table>
-
+*/}
             </div>
 
         </>

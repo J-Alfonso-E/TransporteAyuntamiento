@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
+import { AlertaFalloSesion } from "../Componentes/InicioSeccionIncorrecto";
 //import { AuthContext } from "../Auth/AuthContext";
 //import { authReducer } from "../Auth/AuthReducer";
 
@@ -25,9 +26,14 @@ export const Login = () => {
 
     const DatosSesion = ({target}) => {
         SetValues({...values,
-        [target.name] : target.value})
+        [target.name] : target.value});
+
+        let Etq = document.getElementById("LeyendaError");
+            Etq.setAttribute("class", "alert alert-danger EsconderLeyenda");
 
     }
+
+    const [FalloSesion, SetAlertaFallo] = useState(0); 
 
     const InicioSession = () => {
         console.log("Intento de Inicio de Sesion");
@@ -36,9 +42,13 @@ export const Login = () => {
 
         fetch(encodeURI(`https://transportesflores.info/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`), {
             method: "GET"
-            
         })
-        .then(responseraw => responseraw.json())
+        .then(responseraw => {
+            if(responseraw.ok){
+                return responseraw.json();
+            }
+            return Promise.reject(responseraw);
+        })
         .then(respuesta => {
             console.log("Permisos:" + respuesta['results'][0]['id_tipo_usuario']);
             console.log("Permisos:" + respuesta['results'][0]['username']);
@@ -47,9 +57,11 @@ export const Login = () => {
             cookie.set("Usuario", respuesta['results'][0]["username"], {path:"/"});
             cookie.set("TipoUsuario", respuesta['results'][0]["id_tipo_usuario"], {path:"/"});
 
-            switch(respuesta['results'][0]['id_tipo_usuario']){
+            switch(parseInt( respuesta['results'][0]['id_tipo_usuario'])){
                 case 1:
+                    //console.log("Intentando Redigiri")
                     navigate("/Administrativo");
+                    
                 break;
 
                 case 2:
@@ -65,6 +77,10 @@ export const Login = () => {
         })
         .catch(err => {
             console.log("Fallo en la Solicitud: " + err);
+            console.log("Poniendo la señal de alerta");
+            SetAlertaFallo(c => c + 1);
+            let Etq = document.getElementById("LeyendaError");
+            Etq.setAttribute("class", "alert alert-danger");
         });
 
         /*SetValues({...values,
@@ -80,6 +96,7 @@ export const Login = () => {
         e.preventDefault();
     }
 
+   
     return (
         <div className="BGImage">
             <div className="container mt-5">
@@ -101,6 +118,13 @@ export const Login = () => {
                 <div className="row mt-5 ">
 
                     <div className="col-md-5 LoginSection mx-auto">
+
+                        <div className="row" id="LeyendaFallo">
+                            <AlertaFalloSesion />
+                            
+                        </div>
+                        <br />
+
                         <div className="row">
                             <h4>Ingresar</h4>
                         </div>

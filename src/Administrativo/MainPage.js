@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-//import { RegistrosAsistencias } from "../Componentes/RegistrosAsistenciaTabla";
 import { Dashboard } from "../Dashboard/DashboardAdmin";
 import DataTable from 'react-data-table-component';
-import { DashboardGeneral } from "../Dashboard/DashboardGeneral";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+//import { ExcelAsistencias } from "../Componentes/ExcelAsistencias";
+var XLSX = require("xlsx");
 
 
 export const MainPage = () => {
@@ -14,22 +14,22 @@ export const MainPage = () => {
     const cookie = new Cookies();
     const navigate = useNavigate();
 
-    const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 :parseInt(cookie.get("TipoUsuario"));
+    const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 : parseInt(cookie.get("TipoUsuario"));
     console.log(TipoUsuario);
 
-    switch(TipoUsuario){
+    switch (TipoUsuario) {
 
         case 2:
-            
+
             navigate("/Becario");
-        break;
+            break;
 
         case 3:
             navigate("/Cuenca");
 
-        break;
+            break;
 
-        case 0: 
+        case 0:
             navigate("/");
     }
 
@@ -56,6 +56,7 @@ export const MainPage = () => {
         FechaFinal: Anio + "-" + Mes + "-" + ultimoDia.getDate()
     });
     const [DataApi, SetDataApi] = useState({});
+    const [DatosTabla, SetDatosTabla] = useState();
 
     const CambioFechas = ({ target }) => {
         SetFechas({
@@ -79,11 +80,21 @@ export const MainPage = () => {
                     respuesta.results.map(Registro => {
                         return {
                             ...Registro, boton: <i className="bi bi-list-ul" data-bs-toggle="modal" data-bs-target="#ModalEjemplo" onClick={() => AsistenciaPorBecario(Registro.id_estudiante)} aria-hidden="true"></i>
-                            
+
                         }
 
                     })
-                )
+                );
+
+                SetDatosTabla(
+                    respuesta.results.map(Registro => {
+                        return {
+                            Nombre: Registro.nombre + " " + Registro.apellido_paterno + " " + Registro.apellido_materno,
+                            Asistencias: Registro.asistencias
+                        }
+
+                    })
+                );
 
             })
             .catch(err => {
@@ -131,10 +142,10 @@ export const MainPage = () => {
         fetch(encodeURI(`https://transportesflores.info/api-transporte/asistencias?range=hora&linkTo=id_estudiante&equalTo=${IdEstudiante}&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59`), {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
-        .then(Respuesta => {
-            SetAsistencias(Respuesta.results);
+            .then(Respuesta => {
+                SetAsistencias(Respuesta.results);
 
-        })
+            })
     }
 
     const ColunmasAsistancias = [
@@ -143,6 +154,17 @@ export const MainPage = () => {
             selector: row => row.hora
         }
     ]
+
+    const DescargarReporte = () => {
+
+        console.log(DataApi);
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.json_to_sheet(DatosTabla);
+        XLSX.utils.book_append_sheet(wb, ws, "Lista de Asistencias");
+        XLSX.writeFile(wb, `Lista de Asistencias del ${Fechas.FechaInicio} al ${Fechas.FechaFinal}.xlsx`);
+
+
+    }
 
 
     return (
@@ -175,6 +197,12 @@ export const MainPage = () => {
                             <div className="col-md-2 col-4 mt-4">
                                 <button className="btn btn-primary" onClick={Busqueda}>Buscar</button>
                             </div>
+
+
+                            <div className="col-md-2 col-4 offset-md-3 mt-4">
+                                <button className="btn btn-success" onClick={DescargarReporte}><i class="bi bi-list-ul"></i> Descargar reporte</button>
+                            </div>
+
 
                             {/*
                             <div className="col-md-4 col-4 mt-4">

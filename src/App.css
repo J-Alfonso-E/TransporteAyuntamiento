@@ -38,6 +38,10 @@ body {
   border-radius: 21px;
 }
 
+.EsconderLeyenda {
+  display: none;
+}
+
 .form-control-user {
   border-radius: 10rem;
 }
@@ -46,6 +50,47 @@ body {
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 10px;
 }
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.ApartadoImagen:hover .image {
+  opacity: 0.3;
+  cursor: hand;
+}
+
+.ApartadoImagen:hover .middle {
+  opacity: 1;
+  cursor: hand
+}
+
+.Camera-icon {
+  /*background-color: rgba(117, 117, 117, .7);*/
+  color: rgb(93, 93, 93);
+  
+}
+
+#ImagenInput {
+  display: none;
+}
+
 
 .Span-Vigencia-Registro {
   color: rgb(255, 255, 255);

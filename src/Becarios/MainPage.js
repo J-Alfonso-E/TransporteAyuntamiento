@@ -15,28 +15,28 @@ export const MainPageB = () => {
     const cookie = new Cookies();
     const navigate = useNavigate();
 
-    const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 :parseInt(cookie.get("TipoUsuario"));
+    const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 : parseInt(cookie.get("TipoUsuario"));
     console.log(TipoUsuario);
 
-    switch(TipoUsuario){
+    switch (TipoUsuario) {
 
         case 1:
-            
+
             navigate("/Administrativo");
-        break;
+            break;
 
         case 3:
             navigate("/Cuenca");
 
-        break;
+            break;
 
-        case 0: 
+        case 0:
             navigate("/");
     }
-    
+
 
     const Temp = new Date();
-    const FechaActual = Temp.getDay() +"-" + (Temp.getMonth()+1) +"-" + Temp.getFullYear();
+    const FechaActual = Temp.getDay() + "-" + (Temp.getMonth() + 1) + "-" + Temp.getFullYear();
     const FechaHora = new Date();
 
     console.log(FechaActual);
@@ -56,10 +56,10 @@ export const MainPageB = () => {
         Mes = date.getMonth() + 1;
     }
 
-    if(date.getDate() < 9){
+    if (date.getDate() < 9) {
         dia = "0" + date.getDate();
     }
-    else{
+    else {
         dia = date.getDate();
     }
 
@@ -68,7 +68,7 @@ export const MainPageB = () => {
 
 
     const [Respuesta, SetRespuesta] = useState({});
-    
+
 
     const [CompRenderizar, SetCompRenderizar] = useState();
 
@@ -83,48 +83,60 @@ export const MainPageB = () => {
         await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=${Usuario}`), {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
-        .then(Respuesta => {
-            //console.log(Respuesta);
-            idEstudiante = Respuesta["results"][0]["id_estudiante"];
+            .then(Respuesta => {
+                //console.log(Respuesta);
+                idEstudiante = Respuesta["results"][0]["id_estudiante"];
+            })
+
+
+        fetch(encodeURI(`https://transportesflores.info/api-transporte/asistencias?linkTo=id_estudiante&equalTo=${idEstudiante}&range=hora&between1=${Fechacompleta} 00:00:00&between2=${Fechacompleta} 23:59:59`), {
+            method: 'GET'
+        }).then(RespuestaRaw => {
+            if(RespuestaRaw.ok){
+                return RespuestaRaw.json();
+            }
+
+            return Promise.reject(RespuestaRaw);
         })
+        .then(Datos => {
+            SetRespuesta(Datos);
+            if (Datos.status === "400" || Datos.total >= 2) {
+                SetCompRenderizar(0);
+                console.log("No se debe renderizar");
+                console.log("Diferencia de tiempo: " + (FechaHoraApi - FechaHora));
+            }
+            else {
+                SetCompRenderizar(1);
+                console.log("Se debe renderizar");
+                console.log("Diferencia de tiempo: " + (FechaHoraApi - FechaHora));
+            }
+        })
+        .catch(err => {
+            console.log("Error: " + err);
+        })
+        
+        //console.log(Datos);
+
+        //console.log(Respuesta);
 
         
-        const RespuestaRaw = await fetch(encodeURI(`https://transportesflores.info/api-transporte/asistencias?linkTo=id_estudiante&equalTo=2&range=hora&between1=${Fechacompleta} 00:00:00&between2=${Fechacompleta} 23:59:59`), {
-        method: 'GET'});
-    
-    const Datos = await RespuestaRaw.json();
-    SetRespuesta(Datos);
-    //console.log(Datos);
-    
-    //console.log(Respuesta);
-
-    if(Datos.status === "400" || Datos.total >= 2){
-        SetCompRenderizar(0);
-        console.log("No se debe renderizar");
-        console.log("Diferencia de tiempo: "+ (FechaHoraApi - FechaHora));
-    }
-    else {
-        SetCompRenderizar(1);
-        console.log("Se debe renderizar");
-        console.log("Diferencia de tiempo: "+ (FechaHoraApi - FechaHora));
-    }
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         ObtenerDatos();
     }
         , [])
 
     return (
         <>
-                <DashboardB />
-                {/*<DashboardGeneral />*/}
-                <div className="container">
-                    <h2 className="mt-5 pt-2">Main Page Becario</h2>
-                    {CompRenderizar == 0 ? <AvisoRegistroNegado /> : <LectorQR />}
-                    
-                    
-                </div>
-            </>
+            <DashboardB />
+            {/*<DashboardGeneral />*/}
+            <div className="container">
+                <h2 className="mt-5 pt-2">Main Page Becario</h2>
+                {CompRenderizar == 0 ? <AvisoRegistroNegado /> : <LectorQR />}
+
+
+            </div>
+        </>
     )
 }

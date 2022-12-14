@@ -37,7 +37,7 @@ class LectorQR extends React.Component {
             return (
                 <div className="App">
                     <section className="App-section">
-                        <div className="App-section-title"> Html5-qrcode React demo</div>
+                        {/*<div className="App-section-title"> Html5-qrcode React demo</div>*/}
                         <br />
                         <br />
                         <br />
@@ -56,10 +56,16 @@ class LectorQR extends React.Component {
             console.log(horaRender);
             console.log(timestamp);
             console.log(isNaN( horaRender - timestamp) );
+            setTimeout(function () {
+                
+                window.location.reload();
+            }, 10000)
             return (
                 <LeyendaRegistro />
             )
         }
+
+
         
     }
 

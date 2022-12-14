@@ -33,7 +33,7 @@ export const DashboardC = () => {
                 <button className="btn btn-danger" onClick={CerrarSesion}> Cerrar Session</button>
                 <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                     <div className="offcanvas-header">
-                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                        <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div className="offcanvas-body">
