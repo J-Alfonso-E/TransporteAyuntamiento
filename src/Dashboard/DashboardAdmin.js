@@ -8,11 +8,11 @@ export const Dashboard = () => {
 
     let cookie = new Cookies();
     let navigate = useNavigate();
-
+/*
     console.log(cookie.get("Id"));
     console.log(cookie.get("Usuario"));
     console.log(cookie.get("TipoUsuario"));
-
+*/
     const CerrarSesion = () => {
 
 

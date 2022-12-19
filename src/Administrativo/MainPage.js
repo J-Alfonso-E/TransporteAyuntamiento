@@ -3,8 +3,9 @@ import { Dashboard } from "../Dashboard/DashboardAdmin";
 import DataTable from 'react-data-table-component';
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { LeyendaSinRegistros } from "../Componentes/AlertaSinRegistros";
 //import { ExcelAsistencias } from "../Componentes/ExcelAsistencias";
-var XLSX = require("xlsx");
+var XLSX = require("xlsx-js-style");
 
 
 export const MainPage = () => {
@@ -15,7 +16,7 @@ export const MainPage = () => {
     const navigate = useNavigate();
 
     const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 : parseInt(cookie.get("TipoUsuario"));
-    console.log(TipoUsuario);
+    //console.log(TipoUsuario);
 
     switch (TipoUsuario) {
 
@@ -57,6 +58,7 @@ export const MainPage = () => {
     });
     const [DataApi, SetDataApi] = useState({});
     const [DatosTabla, SetDatosTabla] = useState();
+    const [AsistenciasTotales, SetAsistenciasTotales] = useState(0);
 
     const CambioFechas = ({ target }) => {
         SetFechas({
@@ -65,16 +67,25 @@ export const MainPage = () => {
         })
     }
 
+    const [LeyendaError, SetLeyendaError] = useState();
+
     const Busqueda = () => {
 
         fetch(encodeURI(`https://transportesflores.info/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=hora&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59&group=estudiantes.id_estudiante`), {
             method: "GET"
 
         })
-            .then(responseraw => responseraw.json())
+            .then(responseraw => {
+                if(responseraw.ok){
+                    return responseraw.json();
+                }
+                return Promise.reject(responseraw);
+            })
             .then(respuesta => {
                 console.log(respuesta.results);
                 //SetDataApi(respuesta.results);
+                SetAsistenciasTotales(respuesta.total);
+                SetLeyendaError(0);
 
                 SetDataApi(
                     respuesta.results.map(Registro => {
@@ -99,6 +110,8 @@ export const MainPage = () => {
             })
             .catch(err => {
                 console.log("Fallo en la Solicitud: " + err);
+                SetAsistenciasTotales(0);
+                SetLeyendaError(1);
             });
     }
 
@@ -134,6 +147,7 @@ export const MainPage = () => {
 
     useEffect(() => {
         Busqueda();
+        SetLeyendaError(0);
     }, []);
 
     const [AsistenciasBecario, SetAsistencias] = useState();
@@ -156,14 +170,50 @@ export const MainPage = () => {
     ]
 
     const DescargarReporte = () => {
-
-        console.log(DataApi);
+        
+                //console.log(DataApi);
+                const wb = XLSX.utils.book_new();
+                const Titulo = [{ v: `Lista de Asistencias del ${Fechas.FechaInicio} al ${Fechas.FechaFinal}`, font: {bold: true, sz: 16}}];
+                const ws = XLSX.utils.json_to_sheet(DatosTabla, {origin: "A2"});
+                
+                ws["!merges"] = [{
+                    s: { r: 0, c: 0 },
+                    e: { r: 0, c: 1 }
+                }];
+                ws["!cols"] = [{ width: 30 }, { width: 20 }, { width: 20 }];
+                
+                XLSX.utils.book_append_sheet(wb, ws, "Lista de Asistencias");
+                XLSX.writeFile(wb, `Lista de Asistencias del ${Fechas.FechaInicio} al ${Fechas.FechaFinal}.xlsx`);
+        
+        // Codigo de ejemplo
+/*
         const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.json_to_sheet(DatosTabla);
-        XLSX.utils.book_append_sheet(wb, ws, "Lista de Asistencias");
-        XLSX.writeFile(wb, `Lista de Asistencias del ${Fechas.FechaInicio} al ${Fechas.FechaFinal}.xlsx`);
 
+        // STEP 2: Create data rows
+        let row1 = ["a", "b", "c"];
+        let row2 = [1, 2, 3];
+        let row3 = [
+            { v: "Courier: 24", t: "s", s: { font: { name: "Courier", sz: 24 } } },
+            { v: "bold & color", t: "s", s: { font: { bold: true, color: { rgb: "FF0000" } } } },
+            { v: "fill: color", t: "s", s: { fill: { fgColor: { rgb: "E9E9E9" } } } },
+            { v: "line\nbreak!", t: "s", s: { alignment: { wrapText: true } } },
+        ];
+        let row4 = ["a b c"];
 
+        // STEP 3: Create Worksheet, add data, set cols widths
+        const ws = XLSX.utils.aoa_to_sheet([row1, row2, row3, row4]);
+        ws["!cols"] = [{ width: 30 }, { width: 20 }, { width: 20 }];
+        //ws["!rows"] = [{ width: 30 }, { width: 20 }, { width: 20}]; // Intento de altura de la celda
+        ws["!merges"] = [
+            {
+                s: { r: 3, c: 0 },
+                e: { r: 3, c: 2 }
+            }];
+        XLSX.utils.book_append_sheet(wb, ws, "browser-demo");
+
+        // STEP 4: Write Excel file to browser
+        XLSX.writeFile(wb, "xlsx-js-style-demo.xlsx");
+*/
     }
 
 
@@ -214,8 +264,9 @@ export const MainPage = () => {
                         </div>
 
                         <div className="row pt-3">
+                            {LeyendaError === 0 ? <DataTable columns={columnas} data={DataApi} />: <LeyendaSinRegistros />}
 
-                            <DataTable columns={columnas} data={DataApi} />
+                            <label>Numero de Asistencias: {AsistenciasTotales}</label>
                             {/*
                             <table className="table table-striped table-hover">
                                 <thead>

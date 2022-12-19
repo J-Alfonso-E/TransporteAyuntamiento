@@ -58,78 +58,84 @@ export const RegistrarBecario = () => {
     }
 
     const handleSubmit = async () => {
+        if (Formulario.Nombre.trim() != "" && Formulario.ApePaterno.trim() != "" && Formulario.ApePaterno.trim() != "" && Formulario.Usuario.trim() != "" &&Formulario.Carrera.trim() != "" && Formulario.Email.trim() != "" && Formulario.Escuela.trim() != "" && Formulario.Celular.trim() != "" && Formulario.Tutor.trim() != "" && Formulario.Password.trim() != "") {
+            //console.log("Envia los datos de Registro");
 
-        const formdatalogin = new FormData();
-        formdatalogin.append('username', Formulario.Usuario);
-        formdatalogin.append('pass', Formulario.Password);
-
-        const RespuestaRawLogin = await fetch(`https://transportesflores.info/api-transporte/login`, {
-            method: 'POST',
-            body: formdatalogin
-        });
-
-        const RespuestaLogin = await RespuestaRawLogin.json();
-
-        console.log(RespuestaLogin);
-
-        const IdLogin = RespuestaLogin.results.lastId;
-
-        console.log(IdLogin);
-
-        //Obteniendo el archivo para subirla
-
-        let archivo = document.getElementById("ImagenInput").files[0];
-
-        const formdatausuario = new FormData();
-        formdatausuario.append("nombre", Formulario.Nombre);
-        formdatausuario.append("apellido_paterno", Formulario.ApePaterno);
-        formdatausuario.append("apellido_materno", Formulario.ApeMaterno)
-        formdatausuario.append("telefono", Formulario.Celular);
-        formdatausuario.append("correo", Formulario.Email);
-        formdatausuario.append("id_login", IdLogin);
-        formdatausuario.append("escuela", Formulario.Escuela)
-        formdatausuario.append("img", archivo);
-        formdatausuario.append("Carrera", Formulario.Carrera);
-
-        //console.log(formdatausuario);
-
-
-        const RespuestaRawUsuario = await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes`), {
-            method: 'POST',
-            body: formdatausuario
-        });
-
-        const RespuestaUsuario = await RespuestaRawUsuario.json();
-
-        console.log(RespuestaUsuario);
-
-        if (RespuestaUsuario.status == "200") {
-            SetStatus("200");
+            
+            const formdatalogin = new FormData();
+            formdatalogin.append('username', Formulario.Usuario);
+            formdatalogin.append('pass', Formulario.Password);
+    
+            const RespuestaRawLogin = await fetch(`https://transportesflores.info/api-transporte/login`, {
+                method: 'POST',
+                body: formdatalogin
+            });
+    
+            const RespuestaLogin = await RespuestaRawLogin.json();
+    
+            console.log(RespuestaLogin);
+    
+            const IdLogin = RespuestaLogin.results.lastId;
+    
+            console.log(IdLogin);
+    
+            //Obteniendo el archivo para subirla
+    
+            let archivo = document.getElementById("ImagenInput").files[0];
+    
+            const formdatausuario = new FormData();
+            formdatausuario.append("nombre", Formulario.Nombre);
+            formdatausuario.append("apellido_paterno", Formulario.ApePaterno);
+            formdatausuario.append("apellido_materno", Formulario.ApeMaterno)
+            formdatausuario.append("telefono", Formulario.Celular);
+            formdatausuario.append("correo", Formulario.Email);
+            formdatausuario.append("id_login", IdLogin);
+            formdatausuario.append("escuela", Formulario.Escuela)
+            formdatausuario.append("img", archivo);
+            formdatausuario.append("Carrera", Formulario.Carrera);
+    
+            //console.log(formdatausuario);
+    
+    
+            const RespuestaRawUsuario = await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes`), {
+                method: 'POST',
+                body: formdatausuario
+            });
+    
+            const RespuestaUsuario = await RespuestaRawUsuario.json();
+    
+            console.log(RespuestaUsuario);
+    
+            if (RespuestaUsuario.status == "200") {
+                SetStatus("200");
+            }
+            else {
+                SetStatus("404");
+            }
+    
+    
+    
+            SetFormulario({
+                Nombre: '',
+                ApePaterno: '',
+                ApeMaterno: '',
+                Usuario: '',
+                Carrera: '',
+                Email: '',
+                Escuela: '',
+                Celular: '',
+                Tutor: '',
+                Password: '',
+                ConfPassword: '',
+                Vigencia: ''
+            })
+    
+            let imagenPrevisualizacion = document.querySelector("#imgPreview");
+            imagenPrevisualizacion.src = UserIcon;
+    
+            
         }
-        else {
-            SetStatus("404");
-        }
-
-
-
-        SetFormulario({
-            Nombre: '',
-            ApePaterno: '',
-            ApeMaterno: '',
-            Usuario: '',
-            Carrera: '',
-            Email: '',
-            Escuela: '',
-            Celular: '',
-            Tutor: '',
-            Password: '',
-            ConfPassword: '',
-            Vigencia: ''
-        })
-
-        let imagenPrevisualizacion = document.querySelector("#imgPreview");
-        imagenPrevisualizacion.src = UserIcon;
-        }
+    }
 
     const Alerta = () => {
         switch (StatusRespuesta) {
@@ -154,6 +160,7 @@ export const RegistrarBecario = () => {
 
 
     const onChangeImg = () => {
+
 
         let $SeleccionArchivo = document.querySelector("#ImagenInput"), $imagenPrevisualizacion = document.querySelector("#imgPreview");
 
@@ -208,6 +215,7 @@ export const RegistrarBecario = () => {
 
                     <div className="card-body">
 
+                        <form>
                         <div className="row">
 
                             <div className="col-lg-5 d-flex d-sm-flex d-md-flex d-lg-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center justify-content-xxl-center align-items-xxl-center">
@@ -262,33 +270,32 @@ export const RegistrarBecario = () => {
                                     </div>
 
                                     <div className="col-12 col-md-6">
-                                        <label>Carrera</label>
-                                        <input type="text" name="Carrera" className="form-control form-control-user" value={Formulario.Carrera} onChange={handleChange} placeholder="Carrera" required />
+                                        <label>Celular</label>
+                                        <input type="text" name="Celular" className="form-control form-control-user" value={Formulario.Celular} onChange={handleChange} placeholder="Celular" required />
                                     </div>
-                                </div>
 
                                 <div className="row pt-2">
 
-                                    <div className="col-12 col-md-6">
-                                        <label>Nombre Usuario</label>
-                                        <input type="text" name="Usuario" className="form-control form-control-user" value={Formulario.Usuario} onChange={handleChange} placeholder="Nombre de Usuario" required />
-                                    </div>
+                                    
 
                                     <div className="col-12 col-md-6">
                                         <label>Instituto o Universidad</label>
                                         <input type="text" name="Escuela" className="form-control form-control-user" value={Formulario.Escuela} onChange={handleChange} placeholder="Universidad o Institucion" required />
                                     </div>
 
+                                    <div className="col-12 col-md-6">
+                                        <label>Carrera</label>
+                                        <input type="text" name="Carrera" className="form-control form-control-user" value={Formulario.Carrera} onChange={handleChange} placeholder="Carrera" required />
+                                    </div>
+                                </div>
+
                                 </div>
 
                                 <div className="row pt-2">
 
-                                    <div className="col-12 col-md-6">
-                                        <label>Celular</label>
-                                        <input type="text" name="Celular" className="form-control form-control-user" value={Formulario.Celular} onChange={handleChange} placeholder="Celular" required />
-                                    </div>
+                                    
 
-                                    <div className="col-12 col-md-6">
+                                    <div className="col-12 col-md-12">
                                         <label>Nombre del Tutor</label>
                                         <input type="text" name="Tutor" className="form-control form-control-user" value={Formulario.Tutor} onChange={handleChange} placeholder="Nombre del Tutor" required />
                                     </div>
@@ -297,16 +304,22 @@ export const RegistrarBecario = () => {
 
                                 <div className="row pt-2">
 
+                                <div className="col-12 col-md-6">
+                                        <label>Nombre Usuario</label>
+                                        <input type="text" name="Usuario" className="form-control form-control-user" value={Formulario.Usuario} onChange={handleChange} placeholder="Nombre de Usuario" required />
+                                    </div>
+
                                     <div className="col-12 col-md-6">
                                         <label>Contraseña</label>
                                         <input type="text" name="Password" className="form-control form-control-user" value={Formulario.Password} onChange={handleChange} placeholder="Contraseña" required />
                                     </div>
 
+                                    {/*
                                     <div className="col-12 col-md-6">
                                         <label>Repetir la Contraseña</label>
                                         <input type="text" name="ConfPassword" className="form-control form-control-user" value={Formulario.ConfPassword} onChange={handleChange} placeholder="Repetir la contraseña" required />
                                     </div>
-
+                                    */}
                                 </div>
 
                                 <div className="row pt-2">
@@ -379,10 +392,10 @@ export const RegistrarBecario = () => {
 
                         </div>
 
+                        </form>
 
 
-
-                    </div>
+                    </div> {/* antes de este debe acabar la etiqueta del form */}
 
                 </div>
 
