@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie"
 import { DashboardB } from "../Dashboard/DashboardBecario"
-import { DashboardGeneral } from "../Dashboard/DashboardGeneral"
 
 export const InfoBecario = () => {
 
@@ -12,7 +11,7 @@ export const InfoBecario = () => {
     const navigate = useNavigate();
 
     const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 :parseInt(cookie.get("TipoUsuario"));
-    console.log(TipoUsuario);
+    //console.log(TipoUsuario);
 
     switch(TipoUsuario){
 
@@ -36,11 +35,11 @@ export const InfoBecario = () => {
     });
 
     const ConsultaDatos = async () => {
-        await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=${IdEstudiante}`), {
+        await fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/estudiantes?linkTo=id_login&equalTo=${IdEstudiante}`), {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
             .then(Respuesta => {
-                console.log(Respuesta.results[0]);
+                //console.log(Respuesta.results[0]);
                 SetEstudiante({
                     ...Respuesta.results[0]
 
@@ -60,7 +59,6 @@ export const InfoBecario = () => {
     return (
         <>
             <DashboardB />
-            {/*<DashboardGeneral />*/}
             <div className="container mt-5 pt-4">
 
 

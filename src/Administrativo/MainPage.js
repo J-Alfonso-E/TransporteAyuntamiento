@@ -4,7 +4,6 @@ import DataTable from 'react-data-table-component';
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import { LeyendaSinRegistros } from "../Componentes/AlertaSinRegistros";
-//import { ExcelAsistencias } from "../Componentes/ExcelAsistencias";
 var XLSX = require("xlsx-js-style");
 
 
@@ -71,7 +70,7 @@ export const MainPage = () => {
 
     const Busqueda = () => {
 
-        fetch(encodeURI(`https://transportesflores.info/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=hora&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59&group=estudiantes.id_estudiante`), {
+        fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=hora&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59&group=estudiantes.id_estudiante`), {
             method: "GET"
 
         })
@@ -153,7 +152,7 @@ export const MainPage = () => {
     const [AsistenciasBecario, SetAsistencias] = useState();
 
     const AsistenciaPorBecario = (IdEstudiante) => {
-        fetch(encodeURI(`https://transportesflores.info/api-transporte/asistencias?range=hora&linkTo=id_estudiante&equalTo=${IdEstudiante}&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59`), {
+        fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/asistencias?range=hora&linkTo=id_estudiante&equalTo=${IdEstudiante}&between1=${Fechas.FechaInicio} 00:00:00&between2=${Fechas.FechaFinal} 23:59:59`), {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
             .then(Respuesta => {
@@ -220,7 +219,6 @@ export const MainPage = () => {
     return (
         <>
             <Dashboard />
-            {/*<DashboardGeneral />*/}
             <div className="container pt-5 mt-2">
                 <h2 className="text-dark LoginSection">Uso de la Beca</h2>
 
@@ -253,37 +251,12 @@ export const MainPage = () => {
                                 <button className="btn btn-success" onClick={DescargarReporte}><i class="bi bi-list-ul"></i> Descargar reporte</button>
                             </div>
 
-
-                            {/*
-                            <div className="col-md-4 col-4 mt-4">
-                                <label>Fecha Inicial: {Fechas.FechaInicio} </label> <br />
-                                <label>Fecha Final: {Fechas.FechaFinal}</label>
-                            </div>
-                            */}
-
                         </div>
 
                         <div className="row pt-3">
                             {LeyendaError === 0 ? <DataTable columns={columnas} data={DataApi} />: <LeyendaSinRegistros />}
 
                             <label>Numero de Asistencias: {AsistenciasTotales}</label>
-                            {/*
-                            <table className="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nombre</th>
-                                        <th scope="col">Numero de Asistencias</th>
-
-                                    </tr>
-                                </thead>
-
-                                <tbody name="CuerpoAsistencias">
-
-                                    <RegistrosAsistencias value={DataApi} />
-
-                                </tbody>
-                            </table>
-                            */}
                         </div>
 
                         <div className="modal" tabindex="-1" id="ModalEjemplo">

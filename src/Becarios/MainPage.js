@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { AvisoRegistroNegado } from "../Componentes/NoRegistrodeAsistencia";
 import { DashboardB } from "../Dashboard/DashboardBecario";
-import { DashboardGeneral } from "../Dashboard/DashboardGeneral";
-//import { AsistenciaporBecario } from "../Lector/Asistencia";
 import LectorQR from "../Lector/InterfazQR";
 
 
@@ -16,7 +14,7 @@ export const MainPageB = () => {
     const navigate = useNavigate();
 
     const TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 : parseInt(cookie.get("TipoUsuario"));
-    console.log(TipoUsuario);
+    //console.log(TipoUsuario);
 
     switch (TipoUsuario) {
 
@@ -39,7 +37,7 @@ export const MainPageB = () => {
     const FechaActual = Temp.getDay() + "-" + (Temp.getMonth() + 1) + "-" + Temp.getFullYear();
     const FechaHora = new Date();
 
-    console.log(FechaActual);
+    //console.log(FechaActual);
 
 
     const Usuario = cookie.get("Id");
@@ -75,12 +73,12 @@ export const MainPageB = () => {
     const ObtenerDatos = async () => {
         //const TempApi = Date().now;
         const FechaHoraApi = new Date();
-        console.log(FechaHora);
-        console.log(FechaHoraApi);
+        //console.log(FechaHora);
+        //console.log(FechaHoraApi);
 
         let idEstudiante;
 
-        await fetch(encodeURI(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=${Usuario}`), {
+        await fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/estudiantes?linkTo=id_login&equalTo=${Usuario}`), {
             method: "GET"
         }).then(RespuestaRaw => RespuestaRaw.json())
             .then(Respuesta => {
@@ -89,7 +87,7 @@ export const MainPageB = () => {
             })
 
 
-        fetch(encodeURI(`https://transportesflores.info/api-transporte/asistencias?linkTo=id_estudiante&equalTo=${idEstudiante}&range=hora&between1=${Fechacompleta} 00:00:00&between2=${Fechacompleta} 23:59:59`), {
+        fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/asistencias?linkTo=id_estudiante&equalTo=${idEstudiante}&range=hora&between1=${Fechacompleta} 00:00:00&between2=${Fechacompleta} 23:59:59`), {
             method: 'GET'
         }).then(RespuestaRaw => {
             if(RespuestaRaw.ok){
@@ -102,17 +100,17 @@ export const MainPageB = () => {
             SetRespuesta(Datos);
             if (Datos.status === "400" || Datos.total >= 2) {
                 SetCompRenderizar(0);
-                console.log("No se debe renderizar");
-                console.log("Diferencia de tiempo: " + (FechaHoraApi - FechaHora));
+                //console.log("No se debe renderizar");
+                //console.log("Diferencia de tiempo: " + (FechaHoraApi - FechaHora));
             }
             else {
                 SetCompRenderizar(1);
-                console.log("Se debe renderizar");
-                console.log("Diferencia de tiempo: " + (FechaHoraApi - FechaHora));
+                //console.log("Se debe renderizar");
+                //console.log("Diferencia de tiempo: " + (FechaHoraApi - FechaHora));
             }
         })
         .catch(err => {
-            console.log("Error: " + err);
+            //console.log("Error: " + err);
         })
         
         //console.log(Datos);
@@ -130,9 +128,8 @@ export const MainPageB = () => {
     return (
         <>
             <DashboardB />
-            {/*<DashboardGeneral />*/}
             <div className="container">
-                <h2 className="mt-5 pt-2">Main Page Becario</h2>
+                <h2 className="mt-5 pt-2 Login-Section">Main Page Becario</h2>
                 {CompRenderizar == 0 ? <AvisoRegistroNegado /> : <LectorQR />}
 
 

@@ -3,7 +3,6 @@ import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { DashboardC } from "../Dashboard/DashboardCuenca"
-import { DashboardGeneral } from "../Dashboard/DashboardGeneral"
 
 export const MainPageC = () => {
 
@@ -13,10 +12,12 @@ export const MainPageC = () => {
     const navigate = useNavigate();
 
     let TipoUsuario = isNaN(parseInt(cookie.get("TipoUsuario"))) ? 0 :parseInt(cookie.get("TipoUsuario"));
+    /*
     console.log(TipoUsuario);
     console.log(isNaN(cookie.get("TipoUsuario")));
     console.log(isNaN(TipoUsuario));
     console.log(TipoUsuario == 2 ? "Becario" : "Es otro");
+    */
 
     switch(TipoUsuario){
 
@@ -60,14 +61,12 @@ export const MainPageC = () => {
 
     const Busqueda = () => {
 
-        fetch(encodeURI(`https://transportesflores.info/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=hora&between1=${Fecha} 00:00:00&between2=${Fecha} 23:59:59&group=estudiantes.id_estudiante`), {
+        fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/relations?rel=asistencias,estudiantes&type=asistencia,estudiante&linkTo=hora&between1=${Fecha} 00:00:00&between2=${Fecha} 23:59:59&group=estudiantes.id_estudiante`), {
             method: "GET"
 
         })
             .then(responseraw => responseraw.json())
             .then(respuesta => {
-                console.log(respuesta.results);
-                //SetDataApi(respuesta.results);
 
                 SetDataApi(
                     respuesta.results.map(Registro => {
@@ -81,7 +80,7 @@ export const MainPageC = () => {
 
             })
             .catch(err => {
-                console.log("Fallo en la Solicitud: " + err);
+                //.log("Fallo en la Solicitud: " + err);
             });
     }
 
@@ -121,23 +120,11 @@ export const MainPageC = () => {
     return (
         <>
             <DashboardC />
-            {/*<DashboardGeneral />*/}
+            
             <div className="container mt-5 pt-5">
                 <h2 className="LoginSection text-darl">Asistencia del día </h2>
 
                 <DataTable columns={columnas} data={DataApi} pagination />
-                {/*
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="row">Nombre</th>
-                            <th scope="row">Primera Asistencia</th>
-                            <th scope="row">Segunda Asistencia</th>
-                        </tr>
-                    </thead>
-
-                </table>
-*/}
             </div>
 
         </>

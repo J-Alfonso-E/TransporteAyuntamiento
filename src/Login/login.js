@@ -2,18 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import { AlertaFalloSesion } from "../Componentes/InicioSeccionIncorrecto";
-//import { AuthContext } from "../Auth/AuthContext";
-//import { authReducer } from "../Auth/AuthReducer";
+
 
 export const Login = () => {
-    console.log("Login");
-
-    //const {user, dispatch} = useContext(AuthContext);
+    //console.log("Login");
 
     let cookie = new Cookies();
 
     let navigate = useNavigate();
-
 
     const [values, SetValues] = useState({
         Usuario: "",
@@ -36,11 +32,13 @@ export const Login = () => {
     const [FalloSesion, SetAlertaFallo] = useState(0); 
 
     const InicioSession = () => {
+        /*
         console.log("Intento de Inicio de Sesion");
         console.log(values);
         console.log("msj");
+        */
 
-        fetch(encodeURI(`https://transportesflores.info/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`), {
+        fetch(encodeURI(`https://becatransportecuitzeo2021-2024.com/api-transporte/login?linkTo=username|pass&equalTo=${values.Usuario}|${values.Password}`), {
             method: "GET"
         })
         .then(responseraw => {
@@ -50,9 +48,10 @@ export const Login = () => {
             return Promise.reject(responseraw);
         })
         .then(respuesta => {
+            /*
             console.log("Permisos:" + respuesta['results'][0]['id_tipo_usuario']);
             console.log("Permisos:" + respuesta['results'][0]['username']);
-
+*/
             cookie.set("Id", respuesta['results'][0]["id_login"], {path:"/"});
             cookie.set("Usuario", respuesta['results'][0]["username"], {path:"/"});
             cookie.set("TipoUsuario", respuesta['results'][0]["id_tipo_usuario"], {path:"/"});
@@ -76,23 +75,20 @@ export const Login = () => {
 
         })
         .catch(err => {
+            /*
             console.log("Fallo en la Solicitud: " + err);
             console.log("Poniendo la señal de alerta");
+            */
             SetAlertaFallo(c => c + 1);
             let Etq = document.getElementById("LeyendaError");
             Etq.setAttribute("class", "alert alert-danger");
         });
 
-        /*SetValues({...values,
-            logged: "[auth] Login"
-        
-        })
-    dispatch(values);*/
     }
     
 
     const EnviarFormulario = (e) => {
-        console.log(values);
+        //console.log(values);
         e.preventDefault();
     }
 

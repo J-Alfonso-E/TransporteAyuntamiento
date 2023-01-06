@@ -1,25 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-//import { CerrarSesion } from "./CerrarSesion";
-//import { RutasPrueba } from "../Rutas/RutasPrivadas";
+
 
 
 export const Dashboard = () => {
 
     let cookie = new Cookies();
     let navigate = useNavigate();
-/*
-    console.log(cookie.get("Id"));
-    console.log(cookie.get("Usuario"));
-    console.log(cookie.get("TipoUsuario"));
-*/
+
     const CerrarSesion = () => {
-
-
-        //console.log(cookie.get("Id"));
-        //console.log(cookie.get("Usuario"));
-        //console.log(cookie.get("TipoUsuario"));
-
         cookie.remove("Usuario");
         cookie.remove("Id");
         cookie.set("TipoUsuario", 0);
@@ -54,12 +43,8 @@ export const Dashboard = () => {
                                 </li>
 
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/Administrativo/RegistrarBecario">RegistarBecario</Link>
+                                    <Link className="nav-link" to="/Administrativo/RegistrarBecario">Registar Becario</Link>
                                 </li>
-
-                                {/*<li className="nav-item">
-                                <a className="nav-link" href="#">Uso de la Beca</a>
-    </li>*/}
                             </ul>
                         </div>
                     </div>

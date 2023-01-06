@@ -9,11 +9,6 @@ export const DashboardC = () => {
     
     const CerrarSesion = () => {
         
-    
-        //console.log(cookie.get("Id"));
-        //console.log(cookie.get("Usuario"));
-        //console.log(cookie.get("TipoUsuario"));
-    
         cookie.remove("Usuario");
         cookie.remove("Id");
         cookie.set("TipoUsuario", 0);
@@ -39,7 +34,7 @@ export const DashboardC = () => {
                     <div className="offcanvas-body">
                         <ul className="navbar-nav justify-content-end ">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/Cuenca">Home</Link>
+                                <Link className="nav-link" aria-current="page" to="/Cuenca">Lista de Asistencias</Link>
                             </li>
                                                         
                         </ul>

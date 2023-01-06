@@ -13,7 +13,7 @@ export const RegistrarAsistencia = () => {
 
 
 
-    fetch(`https://transportesflores.info/api-transporte/estudiantes?linkTo=id_login&equalTo=${IdLogin}`, {
+    fetch(`https://becatransportecuitzeo2021-2024.com/api-transporte/estudiantes?linkTo=id_login&equalTo=${IdLogin}`, {
         method: 'GET'
     }).then(RespuestaRaw => RespuestaRaw.json())
         .then(Respuesta => {
@@ -23,7 +23,7 @@ export const RegistrarAsistencia = () => {
             let Datos = new FormData();
             Datos.append("id_estudiante", Est);
 
-            fetch(encodeURI('https://transportesflores.info/api-transporte/asistencias'), {
+            fetch(encodeURI('https://becatransportecuitzeo2021-2024.com/api-transporte/asistencias'), {
                 method: 'POST',
                 body: Datos
             }).then(ResponseRaw => ResponseRaw.json())
@@ -31,21 +31,4 @@ export const RegistrarAsistencia = () => {
                     console.log(Respuesta);
                 })
         });
-
-    //console.log("Id del Estudiante: " + IdEstudianteInfo);
-    //console.log("Id del Estudiante: " + Est)
-    
-
-    //Datos.append("id_estudiante", IdEstudianteInfo);
-
-    /*
-        fetch(encodeURI('https://transportesflores.info/api-transporte/asistencias'), {
-            method: 'POST',
-            body: Datos
-        }).then(ResponseRaw => ResponseRaw.json())
-        .then(Respuesta => {
-            console.log(Respuesta);
-        })
-        */
-
 }

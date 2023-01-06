@@ -93,6 +93,20 @@ body {
 }
 
 
+
+.Result-container {
+  display: none;
+}
+
+img[alt="Info icon"] {
+  display: none;
+}
+
+#html5qr-code-full-region__dashboard_section_swaplink {
+  display: none;
+}
+
+
 .Span-Vigencia-Registro {
   color: rgb(255, 255, 255);
 }
